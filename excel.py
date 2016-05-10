@@ -34,3 +34,25 @@ class Languages(enum.Enum):
 	ES = 8
 	PO = 9
 	FR = 10
+	
+def string_to_lang(langstr):
+	l = langstr.lower()
+	if l == 'en':
+		return Languages.EN
+	elif l == 'it':
+		return Languages.IT
+	elif l == 'ja':
+		return Languages.JA
+	elif l == 'zh':
+		return Languages.ZH
+	elif l == 'de':
+		return Languages.DE
+	elif l == 'es':
+		return Languages.ES
+	elif l == 'po':
+		return Languages.PO
+	elif l == 'fr':
+		return Languages.FR
+	else:
+		print "Language '%s' unknown. Aborting"%l
+		return None

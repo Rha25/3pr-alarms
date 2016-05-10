@@ -103,16 +103,17 @@ if __name__ == "__main__":
 	parser.add_argument('-lang', type=str, required=True, help='chosen language')
 	parser.add_argument('-output', type=str, required=False, help='xml target file')
 	args = parser.parse_args()
-	open_file_at_page(args.filename, args.page)
-	from excel import open_page as sheet
-	if sheet:
-		print "Creating alarms..."
-		create_standards()
-		create_ecodry()
-		create_circuits()
-		create_chiller()
-		create_multistage()
-		# TODO: setup export_lang
-		print "Alarms created. Saving results"
-		where = args.output if args.output is not None else get_output(args.filename)
-		export(where)
+	export_lang = string_to_lang(args.lang)
+	if export_lang is not None:
+		open_file_at_page(args.filename, args.page)
+		from excel import open_page as sheet
+		if sheet:
+			print "Creating alarms..."
+			create_standards()
+			create_ecodry()
+			create_circuits()
+			create_chiller()
+			create_multistage()
+			print "Alarms created. Saving results"
+			where = args.output if args.output is not None else get_output(args.filename)
+			export(where)
