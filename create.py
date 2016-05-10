@@ -42,22 +42,25 @@ def create_multistage():
 	pass
 
 def create_standards():
-	# TODO SPRUZZI FILA 1
+	# SPRAY GROUP
+	alarm_list.append(NonserialAlarm(ident='WNS_PBE', name=2, desc=3, help=4, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='WNS_PAE', name=5, desc=6, help=7, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='WNS_DRN', name=8, desc=9, help=10, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='WNS_FPD', name=11, desc=12, help=13, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='ALS_FPD', name=14, desc=15, help=16, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='WNS_ADB', name=17, desc=18, help=19, group='SPRAY', reset='PASSWORD', what='WARNING', page='_none_', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='WNS_BST', name=20, desc=21, help=22, group='SPRAY', reset='PASSWORD', what='WARNING', page='_none_', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='WNS_PSE', name=23, desc=24, help=25, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='ALS_PSE', name=26, desc=27, help=28, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
 	# TODO SDP POMPE
 	# TODO CAZZATE ALLA FINE DELL'EXCEL
-	pass
 		
 def export(where):
-	XML = """
-	<?xml version="1.0" encoding="UTF-8" ?>
-	<ALARMS>
-	%s
-	</ALARMS>"""
 	content = ''
 	for alarm in alarm_list:
 		content += alarm.XML(export_lang)
 	with open(where, 'w') as outfile:
-		output = XML%content # FIXME replace & with UTF-8 value
+		output = xml_file_template%content # FIXME replace & with UTF-8 value
 		outfile.write(output.encode('utf-8')) 
 		outfile.close()
 	print "Done! Check the file", where
@@ -81,11 +84,11 @@ if __name__ == "__main__":
 	from excel import open_page as sheet
 	if sheet:
 		print "Creating alarms..."
+		create_standards()
 		create_ecodry()
 		create_circuits()
 		create_chiller()
 		create_multistage()
-		create_standards()
 		# TODO: setup export_lang
 		print "Alarms created. Saving results"
 		where = args.output if args.output is not None else get_output(args.filename)

@@ -1,6 +1,10 @@
 from excel import *
 
-xml_template = """
+xml_file_template = """<?xml version="1.0" encoding="UTF-8" ?>
+<ALARMS>%s
+</ALARMS>"""
+
+xml_alarm_template = """
 <ALARM>
 	<ID>%(identifier)s</ID>
 	<NAME>%(name)s</NAME>
@@ -32,7 +36,7 @@ class Alarm:
 		self.regtype = self.get_regtype()
 		self.page = self.get_page()
 		# return the complete XML calling class' methods
-		return xml_template%self.__dict__
+		return xml_alarm_template%self.__dict__
 	def get_identifier(self):
 		return self.identifier
 	def get_name(self, lang):
