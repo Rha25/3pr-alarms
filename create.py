@@ -85,7 +85,7 @@ def create_standards():
 	alarm_list.append(NonserialAlarm(ident='WNS_PSE', name=23, desc=24, help=25, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='ALS_PSE', name=26, desc=27, help=28, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
 
-	# SDP PUMPS FIXME REMOVE 1 FROM ALL ROW NUMBERS
+	# SDP PUMPS
 	alarm_list.append(NonserialAlarm(ident='A05_COM', name=148, desc=149, help=150, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='A05_LWL', name=151, desc=152, help=153, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='A05_LWS', name=154, desc=155, help=156, group='CIRCUIT SDP', reset='PASSWORD', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
@@ -115,7 +115,9 @@ def export(where):
 	for alarm in alarm_list:
 		content += alarm.XML(export_lang)
 	with open(where, 'w') as outfile:
-		output = xml_file_template%content # FIXME replace & with UTF-8 value
+		output = xml_file_template%content
+		# replace unwanted ampersands...
+		output = output.replace('&', '&amp;')
 		outfile.write(output.encode('utf-8')) 
 		outfile.close()
 	print "Done! Check the file", where
