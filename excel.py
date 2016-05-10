@@ -1,7 +1,10 @@
 import xlrd
 import enum
 
+# Functions to extract strings from the 3PR Translations.xlsx file
+
 open_page = None # declared here
+error_string = "__ERROR__"
 
 def open_file_at_page(path, page):
 	print "Opening file", path, "at page", page
@@ -13,10 +16,14 @@ def open_file_at_page(path, page):
 		print "Done"
 	except Exception as ex:
 		print "Error opening the excel file: ", ex.message
-		open_page = "ERROR"
 
 def value_at(row, col):
-	return open_page.cell_value(row, col)
+	if row < 2 or row >= open_page.nrows:
+		return error_string
+	elif col < 0 or col >= open_page.ncols:
+		return error_string
+	else:
+		return open_page.cell_value(row-1, col)
 
 class Languages(enum.Enum):
 	EN = 0
