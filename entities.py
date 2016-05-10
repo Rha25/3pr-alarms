@@ -331,7 +331,7 @@ class SDPumpAlarm(Alarm):
 		self.regtype = 'COIL'
 	def get_name(self, lang):
 		return value_at(self.name_row, lang).format(pump=self.pump)
-	def get_desc(self, lang):
+	def get_description(self, lang):
 		return value_at(self.desc_row, lang).format(pump=self.pump)
 	def get_help(self, lang):
 		return value_at(self.help_row, lang).format(pump=self.pump)
@@ -354,7 +354,7 @@ class PLCCMAlarm(Alarm):
 		self.regtype = 'COIL'
 	def get_name(self, lang):
 		return value_at(self.name_row, lang).format(module=self.module)
-	def get_desc(self, lang):
+	def get_description(self, lang):
 		return value_at(self.desc_row, lang).format(module=self.module)
 	def get_help(self, lang):
 		return value_at(self.help_row, lang).format(module=self.module)
@@ -370,18 +370,18 @@ class CircuitAlarm(Alarm):
 		self.page = 'circuit_%c_page.qml'%circuit
 	def get_name(self, lang):
 		return value_at(self.name_row, lang).format(circuit=self.circuit, pump=self.pump)
-	def get_desc(self, lang):
+	def get_description(self, lang):
 		return value_at(self.desc_row, lang).format(circuit=self.circuit, pump=self.pump)
 	def get_help(self, lang):
 		return value_at(self.help_row, lang).format(circuit=self.circuit, pump=self.pump)
 	def get_number(self):
 		if self.circuit == 'A':
 			return 1
-		if self.circuit == 'B':
+		elif self.circuit == 'B':
 			return 2
-		if self.circuit == 'C':
+		elif self.circuit == 'C':
 			return 3
-		if self.circuit == 'D':
+		elif self.circuit == 'D':
 			return 4
 
 class Circuit3PRComAlarm(CircuitAlarm):
@@ -648,7 +648,7 @@ class CircuitVFDAlarm(CircuitAlarm):
 		self.help_row = 147
 		self.what = 'ALARM'
 		self.condition = 'DIGITAL'
-		self.regtype = 'HOLDING_REGISTER'
+		self.regtype = 'HOLDING_REGISTER' # FIXME will this remain as INT???
 		self.reset = 'AUTO'
 # =================
 # MULTISTAGE

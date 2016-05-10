@@ -33,8 +33,37 @@ def create_ecodry():
 		alarm_list.append(RowBWRAlarm(row))
 		
 def create_circuits():
-	# TODO
-	pass
+	for circuit in ['A','B','C','D']:
+		# 20 alarms + 6 vfd + 6/8 onoff: 32/34 alarms
+		alarm_list.append(Circuit3PRComAlarm(circuit))
+		alarm_list.append(CircuitTB9ComAlarm(circuit))
+		alarm_list.append(CircuitPumpComAlarm(circuit))
+		alarm_list.append(WaterOnAlarm(circuit))
+		alarm_list.append(WaterOffAlarm(circuit))
+		alarm_list.append(WaterResetAlarm(circuit))
+		alarm_list.append(CircuitRefillAlarm(circuit))
+		alarm_list.append(CircuitHTSAAlarm(circuit))
+		alarm_list.append(CircuitPumpsDeltaPWAlarm(circuit))
+		alarm_list.append(CircuitPumpsDeltaPAlarm(circuit))
+		alarm_list.append(CircuitPumpsHPSAlarm(circuit))
+		alarm_list.append(CircuitFilterDropWAlarm(circuit))
+		alarm_list.append(CircuitFilterDropAlarm(circuit))
+		alarm_list.append(CircuitPumpServAlarm(circuit))
+		alarm_list.append(CircuitTSAlarm(circuit))
+		alarm_list.append(CircuitTRAlarm(circuit))
+		alarm_list.append(CircuitPSAlarm(circuit))
+		alarm_list.append(CircuitLTAlarm(circuit))
+		alarm_list.append(CircuitFINAlarm(circuit))
+		alarm_list.append(CircuitFOUTAlarm(circuit))
+		if circuit == 'A' or circuit == 'B':
+			onoff = 8
+		else:
+			onoff = 6
+		vfd = 6
+		for pump in range(1, onoff+1):
+			alarm_list.append(CircuitONOFFAlarm(circuit, pump))
+		for pump in range(1, vfd+1):
+			alarm_list.append(CircuitVFDAlarm(circuit, pump))
 	
 def create_chiller():
 	# TODO
@@ -57,21 +86,21 @@ def create_standards():
 	alarm_list.append(NonserialAlarm(ident='ALS_PSE', name=26, desc=27, help=28, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
 
 	# SDP PUMPS FIXME REMOVE 1 FROM ALL ROW NUMBERS
-	alarm_list.append(NonserialAlarm(ident='A05_COM', name=149, desc=150, help=151, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='A05_LWL', name=152, desc=153, help=154, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='A05_LWS', name=155, desc=156, help=157, group='CIRCUIT SDP', reset='PASSWORD', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='A05_LWR', name=158, desc=159, help=160, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='W05_REF', name=161, desc=162, help=163, group='CIRCUIT SDP', reset='PASSWORD', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='A05_LTE', name=164, desc=165, help=166, group='CIRCUIT SDP', reset='PASSWORD', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='A05_LED', name=167, desc=168, help=169, group='CIRCUIT SDP', reset='AUTO', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='A05_HED', name=170, desc=171, help=172, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='W05_PSR', name=173, desc=174, help=175, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='W05_RTS', name=176, desc=177, help=178, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='W05_TSR', name=179, desc=180, help=181, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
-	alarm_list.append(NonserialAlarm(ident='A05_TER', name=182, desc=183, help=184, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
-	alarm_list.append(NonserialAlarm(ident='A05_TSR', name=185, desc=186, help=187, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
-	alarm_list.append(NonserialAlarm(ident='A05_PSR', name=188, desc=189, help=190, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
-	alarm_list.append(NonserialAlarm(ident='A05_LTR', name=191, desc=192, help=193, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A05_COM', name=148, desc=149, help=150, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LWL', name=151, desc=152, help=153, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LWS', name=154, desc=155, help=156, group='CIRCUIT SDP', reset='PASSWORD', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LWR', name=157, desc=158, help=159, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W05_REF', name=160, desc=161, help=162, group='CIRCUIT SDP', reset='PASSWORD', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LTE', name=163, desc=164, help=165, group='CIRCUIT SDP', reset='PASSWORD', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LED', name=166, desc=167, help=168, group='CIRCUIT SDP', reset='AUTO', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_HED', name=169, desc=170, help=171, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W05_PSR', name=172, desc=173, help=174, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W05_RTS', name=175, desc=176, help=177, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W05_TSR', name=178, desc=179, help=180, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_TER', name=181, desc=182, help=183, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A05_TSR', name=184, desc=185, help=186, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A05_PSR', name=187, desc=188, help=189, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A05_LTR', name=190, desc=191, help=192, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
 	
 	# 8 POMPE SDP
 	for pump in range(1,9):
@@ -80,7 +109,7 @@ def create_standards():
 	# COMMUNICATION MODULES
 	for module in range(1,4):
 		alarm_list.append(PLCCMAlarm(module))
-		
+
 def export(where):
 	content = ''
 	for alarm in alarm_list:
