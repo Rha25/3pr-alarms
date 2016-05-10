@@ -18,9 +18,9 @@ def open_file_at_page(path, page):
 		print "Error opening the excel file: ", ex.message
 
 def value_at(row, col):
-	if row < 2 or row >= open_page.nrows:
+	if row < 2 or row > open_page.nrows:
 		return error_string
-	elif col < 0 or col >= open_page.ncols:
+	elif col < 0 or col > open_page.ncols:
 		return error_string
 	else:
 		return open_page.cell_value(row-1, col)
