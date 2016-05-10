@@ -1,0 +1,37 @@
+Template del tipo:
+    SERIAL COMMUNICATION ERROR ECODRY ROW %(row)d, FAN %(fan)d
+    ECODRY ROW %(row)d FAN %(fan)d
+da usare come HMI DISPLAY MESSAGE. Li creo manualmente da qualche parte, li passo all'agenzia per le traduzioni, poi a runtime riempio il template con riga/ventola ed è fatta
+
+Le ripetizioni sono:
++ Spray (solo un gruppo, perché considera la lowest pressure)
++ Ecodry (24 file con 10 ventole, BWR, spruzzi booster PBE)
++ Circuiti (4 + SDP, con 8 pompe, ONOFF/VFD)
++ Multistage (6 chiller)
++ Central Chiller (6 chiller)
+
+
+Messaggio generico (Ecodry Fan 1 alarm) + numero della fila preso dal "group" (ECODRY ROW 1)
+Quindi per esempio vedremo l'allarme:
+
+{id = W09_SL0}
+{ECODRY ROW 1} - {FAN 1 ERROR}      ovvero {GROUP} - {ALARM NAME}
+{HELP MESSAGE} generico, va bene su tutti
+
+================================================================================================================================================================
+
+ALARMS.XML rimane quasi come ora, contiene le informazioni COMPLETE di CIASCUN ALLARME (mi evita di cambiare l'engine degli allarmi)
+
+Uno script python SA come generare il file ALARMS.XML:
+- Ha un ristretto numero di funzioni per generare gli allarmi in lingua di ciascun gurppo (ecodry, circuiti, multistage...)
+- Si crea l'entita' allarme (che ha le info all'interno, tipo: NOME riga x, DESCRIZIONE riga y, HELPMESSAGE riga z)
+- Per il resto, le info sono fisse, stanno scritte nell'entita' direttamente (GROUP, RESET, CONDITION)
+- Per ogni gruppo di allarmi si sa quante volte usare l'entita', in dei cicli in cui cambia per esempio il numero della fila, del chiller, e via dicendo... numeri che l'entita' usa per riempire le stringhe
+- Quando cambia il file di merda excel [3PR Comm], devo cambiare le entita' in maniera che riescano a rigenerare gli allarmi
+- Si lancia, con la lingua (en, ja, it...) e lui va a pescare la traduzione dalla colonna giusta.
+
+
+I registri invece dovranno essere caricati a runtime.
+Tramite ID, si fa un file in cui riga riga troviamo: ID=ADDRESS,REGTYPE (colonne A,C di excel)
+A quel punto l'AlarmLoader dovra' leggere due file: ALARMS.XML contiene tutte le info legate all'ID tranne l'indirizzo modbus e il tipo di registro
+Questo file, si esporta da excel ogni volta, e si tiene separato. Un banale datapointer insomma
