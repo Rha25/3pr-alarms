@@ -6,17 +6,19 @@ import enum
 open_page = None # declared here
 error_string = "__ERROR__"
 
+# page = string, title of the page
 def open_file_at_page(path, page):
 	print "Opening file", path, "at page", page
 	global open_page
 	try:
 		print "..."
 		myfile = xlrd.open_workbook(path)
-		open_page = myfile.sheet_by_index(page)
+		open_page = myfile.sheet_by_name(page)
 		print "Done"
 	except Exception as ex:
 		print "Error opening the excel file: ", ex.message
 
+# return the direct cell's value (str, int, float...)
 def value_at(row, col):
 	if row < 2 or row > open_page.nrows:
 		return error_string

@@ -33,12 +33,15 @@ def create_ecodry():
 		alarm_list.append(RowBWRAlarm(row))
 		
 def create_circuits():
+	# TODO
 	pass
 	
 def create_chiller():
+	# TODO
 	pass
 	
 def create_multistage():
+	# TODO
 	pass
 
 def create_standards():
@@ -53,7 +56,7 @@ def create_standards():
 	alarm_list.append(NonserialAlarm(ident='WNS_PSE', name=23, desc=24, help=25, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='ALS_PSE', name=26, desc=27, help=28, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
 
-	# SDP PUMPS
+	# SDP PUMPS FIXME REMOVE 1 FROM ALL ROW NUMBERS
 	alarm_list.append(NonserialAlarm(ident='A05_COM', name=149, desc=150, help=151, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='A05_LWL', name=152, desc=153, help=154, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='A05_LWS', name=155, desc=156, help=157, group='CIRCUIT SDP', reset='PASSWORD', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
@@ -98,8 +101,8 @@ def get_output(original):
 ############
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Create a xml alarms file using translation excel file')
-	parser.add_argument('filename', type=str, help='input xlsx file')
-	parser.add_argument('-page', type=int, required=True, help='index of the page containing alarms (it starts from 0)')
+	parser.add_argument('filename', type=str, help='translations input xlsx file')
+	parser.add_argument('-page', type=str, required=True, help='title of the page containing the translations')
 	parser.add_argument('-lang', type=str, required=True, help='chosen language')
 	parser.add_argument('-output', type=str, required=False, help='xml target file')
 	args = parser.parse_args()
