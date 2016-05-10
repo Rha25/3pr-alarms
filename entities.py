@@ -336,6 +336,52 @@ class RowBWRAlarm(RowAlarm):
 		self.serial = 'NO'
 		self.regtype = 'COIL'
 # =================
+# SDP PUMPS
+# =================
+class SDPumpAlarm(Alarm):
+	def __init__(self, pump):
+		self.pump = pump
+		self.identifier = "A05_PP%d"%(pump)
+		self.name_row = 194
+		self.desc_row = 195
+		self.help_row = 196
+		self.what = 'ALARM'
+		self.condition = 'DIGITAL'
+		self.group = 'CIRCUIT SDP'
+		self.page = 'ecodry_selfdrain_page.qml'
+		self.reset = 'MANUAL'
+		self.serial = 'NO'
+		self.regtype = 'COIL'
+	def get_name(self, lang):
+		return value_at(self.name_row, lang).format(pump=self.pump)
+	def get_desc(self, lang):
+		return value_at(self.desc_row, lang).format(pump=self.pump)
+	def get_help(self, lang):
+		return value_at(self.help_row, lang).format(pump=self.pump)
+# =================
+# CM from PLC
+# =================
+class PLCCMAlarm(Alarm):
+	def __init__(self, module):
+		self.module = module
+		self.identifier = "PLC_CM%d"%(module)
+		self.name_row = 255
+		self.desc_row = 256
+		self.help_row = 257
+		self.what = 'ALARM'
+		self.condition = 'LOGIC'
+		self.group = 'PLC'
+		self.page = '_none_'
+		self.reset = 'MANUAL'
+		self.serial = 'NO'
+		self.regtype = 'COIL'
+	def get_name(self, lang):
+		return value_at(self.name_row, lang).format(module=self.module)
+	def get_desc(self, lang):
+		return value_at(self.desc_row, lang).format(module=self.module)
+	def get_help(self, lang):
+		return value_at(self.help_row, lang).format(module=self.module)
+# =================
 # CENTRAL CHILLER
 # =================	
 class ChillerAlarm(Alarm):

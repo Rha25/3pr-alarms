@@ -6,16 +6,16 @@ import os.path
 alarm_list = []
 export_lang = Languages.EN
 
-def create_ecodry(rows = 24):
+def create_ecodry():
 	# TOTAL: 27 alarms
-	for row in range(1, rows):
+	for row in range(1, 25):
 		# COMMUNICATION ALARMS
 		alarm_list.append(Row3PRComAlarm(row))
 		alarm_list.append(RowTB9ComAlarm(row))
 		alarm_list.append(RowFanComAlarm(row))
 		alarm_list.append(RowFanBreakerAlarm(row))
 		# SERIAL ALARMS of fans
-		for fan in range(1, 10):
+		for fan in range(1, 11):
 			alarm_list.append(RowFanErrorAlarm(row, fan))
 		# PROBES
 		alarm_list.append(RowHighTSEAlarm(row))
@@ -52,8 +52,31 @@ def create_standards():
 	alarm_list.append(NonserialAlarm(ident='WNS_BST', name=20, desc=21, help=22, group='SPRAY', reset='PASSWORD', what='WARNING', page='_none_', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='WNS_PSE', name=23, desc=24, help=25, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='ALS_PSE', name=26, desc=27, help=28, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
-	# TODO SDP POMPE
-	# TODO CAZZATE ALLA FINE DELL'EXCEL
+
+	# SDP PUMPS
+	alarm_list.append(NonserialAlarm(ident='A05_COM', name=149, desc=150, help=151, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LWL', name=152, desc=153, help=154, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LWS', name=155, desc=156, help=157, group='CIRCUIT SDP', reset='PASSWORD', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LWR', name=158, desc=159, help=160, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W05_REF', name=161, desc=162, help=163, group='CIRCUIT SDP', reset='PASSWORD', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LTE', name=164, desc=165, help=166, group='CIRCUIT SDP', reset='PASSWORD', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_LED', name=167, desc=168, help=169, group='CIRCUIT SDP', reset='AUTO', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_HED', name=170, desc=171, help=172, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W05_PSR', name=173, desc=174, help=175, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W05_RTS', name=176, desc=177, help=178, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W05_TSR', name=179, desc=180, help=181, group='CIRCUIT SDP', reset='MANUAL', what='WARNING', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A05_TER', name=182, desc=183, help=184, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A05_TSR', name=185, desc=186, help=187, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A05_PSR', name=188, desc=189, help=190, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A05_LTR', name=191, desc=192, help=193, group='CIRCUIT SDP', reset='MANUAL', what='ALARM', page='ecodry_selfdrain_page.qml', cond='PROBE'))
+	
+	# 8 POMPE SDP
+	for pump in range(1,9):
+		alarm_list.append(SDPumpAlarm(pump))
+		
+	# COMMUNICATION MODULES
+	for module in range(1,4):
+		alarm_list.append(PLCCMAlarm(module))
 		
 def export(where):
 	content = ''
