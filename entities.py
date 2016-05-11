@@ -1,22 +1,20 @@
 from excel import *
 
-xml_file_template = """<?xml version="1.0" encoding="UTF-8" ?>
-<ALARMS>%s
-</ALARMS>"""
+xml_file_template = """<?xml version="1.0" encoding="UTF-8" ?>\n<ALARMS>%s\n</ALARMS>"""
 
 xml_alarm_template = """
-<ALARM>
-	<ID>%(identifier)s</ID>
-	<NAME>%(name)s</NAME>
-	<DESCRIPTION>%(description)s</DESCRIPTION>
-	<HELP>%(help)s</HELP>
-	<GROUP>%(group)s</GROUP>
-	<CONDITION>%(condition)s</CONDITION>
-	<TYPE>%(what)s</TYPE>
-	<RESET>%(reset)s</RESET>
-	<REGTYPE>%(regtype)s</REGTYPE>
-	<PAGE>%(page)s</PAGE>
-</ALARM>"""
+  <ALARM>
+    <ID>%(identifier)s</ID>
+    <NAME>%(name)s</NAME>
+    <DESCRIPTION>%(description)s</DESCRIPTION>
+    <HELP>%(help)s</HELP>
+    <GROUP>%(group)s</GROUP>
+    <CONDITION>%(condition)s</CONDITION>
+    <TYPE>%(what)s</TYPE>
+    <RESET>%(reset)s</RESET>
+    <REGTYPE>%(regtype)s</REGTYPE>
+    <PAGE>%(page)s</PAGE>
+  </ALARM>"""
 
 class Alarm:
 	def XML(self, lang):
