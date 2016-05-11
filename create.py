@@ -12,7 +12,7 @@ def create_ecodry():
 		# COMMUNICATION ALARMS
 		alarm_list.append(Row3PRComAlarm(row))
 		alarm_list.append(RowTB9ComAlarm(row))
-		alarm_list.append(RowFanComAlarm(row))
+		alarm_list.append(RowSerialComAlarm(row))
 		alarm_list.append(RowFanBreakerAlarm(row))
 		# SERIAL ALARMS of fans
 		for fan in range(1, 11):
@@ -37,7 +37,7 @@ def create_circuits():
 		# 20 alarms + 6 vfd + 6/8 onoff: 32/34 alarms
 		alarm_list.append(Circuit3PRComAlarm(circuit))
 		alarm_list.append(CircuitTB9ComAlarm(circuit))
-		alarm_list.append(CircuitPumpComAlarm(circuit))
+		alarm_list.append(CircuitSerialComAlarm(circuit))
 		alarm_list.append(WaterOnAlarm(circuit))
 		alarm_list.append(WaterOffAlarm(circuit))
 		alarm_list.append(WaterResetAlarm(circuit))
@@ -66,8 +66,18 @@ def create_circuits():
 			alarm_list.append(CircuitVFDAlarm(circuit, pump))
 	
 def create_chiller():
-	# TODO
-	pass
+	alarm_list.append(NonserialAlarm(ident='A07_COM', name=196, desc=197, help=198, group='CENTRAL CHILLER', reset='AUTO', what='ALARM', page='_none_', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='W07_COM', name=199, desc=200, help=201, group='CENTRAL CHILLER', reset='AUTO', what='WARNING', page='chiller_pid.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='E07_COM', name=202, desc=203, help=204, group='CENTRAL CHILLER', reset='AUTO', what='WARNING', page='_none_', cond='LOGIC', regtype='HOLDING_REGISTER'))
+	
+	alarm_list.append(NonserialAlarm(ident='W07_TSH', name=205, desc=206, help=207, group='CENTRAL CHILLER', reset='AUTO', what='WARNING', page='chiller_pid.qml', cond='LOGIC'))
+	alarm_list.append(NonserialAlarm(ident='A07_TSH', name=208, desc=209, help=210, group='CENTRAL CHILLER', reset='MANUAL', what='ALARM', page='chiller_pid.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A07_TRH', name=211, desc=212, help=213, group='CENTRAL CHILLER', reset='MANUAL', what='ALARM', page='chiller_pid.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A07_TAH', name=214, desc=215, help=216, group='CENTRAL CHILLER', reset='MANUAL', what='ALARM', page='chiller_pid.qml', cond='PROBE'))
+	
+	for chiller in range(1, 7):
+		for alarm in range(1, 7):
+			alarm_list.append(ChillerAlarm(chiller, alarm))
 	
 def create_multistage():
 	# TODO
