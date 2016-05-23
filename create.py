@@ -35,7 +35,14 @@ def create_alarms():
 	alarm_list.append(NonserialAlarm(ident='WNS_PSE', name=23, desc=24, help=25, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
 	alarm_list.append(NonserialAlarm(ident='ALS_PSE', name=26, desc=27, help=28, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
 	
-	# TOTAL: 27 alarms
+	# TOTAL: 27 alarms, 20 commons + 7 for row 1 only
+	alarm_list.append(RowHighTSEAlarm(1))
+	alarm_list.append(RowTAEAlarm(1))
+	alarm_list.append(RowTSEAlarm(1))
+	alarm_list.append(RowTREAlarm(1))
+	alarm_list.append(RowPINEAlarm(1))
+	alarm_list.append(RowPOUTEAlarm(1))
+	alarm_list.append(RowLTEAlarm(1))
 	for row in range(1, 25):
 		# COMMUNICATION ALARMS
 		alarm_list.append(Row3PRComAlarm(row))
@@ -46,13 +53,6 @@ def create_alarms():
 		for fan in range(1, 11):
 			alarm_list.append(RowFanErrorAlarm(row, fan))
 		# PROBES
-		alarm_list.append(RowHighTSEAlarm(row))
-		alarm_list.append(RowTAEAlarm(row))
-		alarm_list.append(RowTSEAlarm(row))
-		alarm_list.append(RowTREAlarm(row))
-		alarm_list.append(RowPINEAlarm(row))
-		alarm_list.append(RowPOUTEAlarm(row))
-		alarm_list.append(RowLTEAlarm(row))
 		alarm_list.append(RowPSEAlarm(row))
 		alarm_list.append(RowPBE1Alarm(row))
 		alarm_list.append(RowPBE2Alarm(row))
@@ -133,9 +133,9 @@ def create_alarms():
 	alarm_list.append(NonserialAlarm(ident='A08_TRM', name=234, desc=235, help=236, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
 	alarm_list.append(NonserialAlarm(ident='A08_TAM', name=237, desc=238, help=239, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
 	alarm_list.append(NonserialAlarm(ident='A08_TCM', name=240, desc=241, help=242, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
-	alarm_list.append(NonserialAlarm(ident='A08_TP0M', name=243, desc=244, help=245, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
-	alarm_list.append(NonserialAlarm(ident='A08_TP1M', name=246, desc=247, help=248, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
-	alarm_list.append(NonserialAlarm(ident='A08_TP2M', name=249, desc=250, help=251, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A08_TP0', name=243, desc=244, help=245, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A08_TP1', name=246, desc=247, help=248, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
+	alarm_list.append(NonserialAlarm(ident='A08_TP2', name=249, desc=250, help=251, group='MULTISTAGE', reset='MANUAL', what='ALARM', page='multistage_pid.qml', cond='PROBE'))
 	for chiller in range(1, 7):
 		for alarm in range(1, 7):
 			alarm_list.append(MultistageAlarm(chiller, alarm))
