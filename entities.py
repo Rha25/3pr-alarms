@@ -500,7 +500,7 @@ class CircuitPumpsDeltaPAlarm(CircuitAlarm):
 		self.name_row = 109
 		self.desc_row = 110
 		self.help_row = 111
-		self.what = 'WARNING'
+		self.what = 'ALARM'
 		self.condition = 'LOGIC'
 		self.regtype = 'COIL'	
 		self.reset = 'MANUAL'
