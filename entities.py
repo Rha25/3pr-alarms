@@ -356,6 +356,66 @@ class PLCCMAlarm(Alarm):
 		return value_at(self.desc_row, lang).format(module=self.module)
 	def get_help(self, lang):
 		return value_at(self.help_row, lang).format(module=self.module)
+# =================
+# AUXILIARY P/T
+# =================
+class TAUXAlarm(Alarm):
+    def __init__(self, slave):
+        self.identifier = "A%02d_TAX"%(slave)
+        self.name_row = 260
+        self.desc_row = 261
+        self.help_row = 262
+        self.what = 'ALARM'
+        self.condition = 'PROBE'
+        self.group = 'AUXILIARY'
+        self.page = 'aux_page.qml'
+        self.reset = 'MANUAL'
+        self.regtype = 'COIL'
+        if slave == 1:
+            self.tb9 = "CIRCUIT A"
+        elif slave == 2:
+            self.tb9 = "CIRCUIT B"
+        elif slave == 3:
+            self.tb9 = "CIRCUIT C"
+        elif slave == 7:
+            self.tb9 = "CENTRAL CHILLER"
+        else:
+            self.tb9 = "[wrong TB9]"
+    def get_name(self, lang):
+        return value_at(self.name_row, lang).format(tb9=self.tb9)
+    def get_description(self, lang):
+        return value_at(self.desc_row, lang).format(tb9=self.tb9)
+    def get_help(self, lang):
+        return value_at(self.help_row, lang).format(tb9=self.tb9)
+
+class PAUXAlarm(Alarm):
+    def __init__(self, slave):
+        self.identifier = "A%02d_PAX"%(slave)
+        self.name_row = 260
+        self.desc_row = 261
+        self.help_row = 262
+        self.what = 'ALARM'
+        self.condition = 'PROBE'
+        self.group = 'AUXILIARY'
+        self.page = 'aux_page.qml'
+        self.reset = 'MANUAL'
+        self.regtype = 'COIL'
+        if slave == 1:
+            self.tb9 = "CIRCUIT A"
+        elif slave == 2:
+            self.tb9 = "CIRCUIT B"
+        elif slave == 3:
+            self.tb9 = "CIRCUIT C"
+        elif slave == 7:
+            self.tb9 = "CENTRAL CHILLER"
+        else:
+            self.tb9 = "[wrong TB9]"
+    def get_name(self, lang):
+        return value_at(self.name_row, lang).format(tb9=self.tb9)
+    def get_description(self, lang):
+        return value_at(self.desc_row, lang).format(tb9=self.tb9)
+    def get_help(self, lang):
+        return value_at(self.help_row, lang).format(tb9=self.tb9)
 
 # =================
 # CIRCUITS
