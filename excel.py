@@ -36,6 +36,7 @@ class Languages(enum.Enum):
 	ES = 8
 	PO = 9
 	FR = 10
+	CZ = 11 # FIXME: vedere dove lo pianta moretto
 	
 def string_to_lang(langstr):
 	l = langstr.lower()

@@ -34,6 +34,7 @@ def create_alarms():
     alarm_list.append(NonserialAlarm(ident='WNS_BST', name=20, desc=21, help=22, group='SPRAY', reset='PASSWORD', what='WARNING', page='_none_', cond='LOGIC'))
     alarm_list.append(NonserialAlarm(ident='WNS_PSE', name=23, desc=24, help=25, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
     alarm_list.append(NonserialAlarm(ident='ALS_PSE', name=26, desc=27, help=28, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
+    alarm_list.append(NonserialAlarm(ident='WNS_BWR', name=263, desc=264, help=265, group='SPRAY', reset='PASSWORD', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
     
     # TOTAL: 27 alarms, 20 commons + 7 for row 1 only
     alarm_list.append(RowHighTSEAlarm(1))
@@ -91,7 +92,11 @@ def create_alarms():
         for pump in range(1, onoff+1):
             alarm_list.append(CircuitONOFFAlarm(circuit, pump))
         for pump in range(1, vfd+1):
-            alarm_list.append(CircuitVFDAlarm(circuit, pump))
+            alarm_list.append(CircuitVFDAlarm(circuit, pump, 1))
+            alarm_list.append(CircuitVFDAlarm(circuit, pump, 2))
+            alarm_list.append(CircuitVFDAlarm(circuit, pump, 3))
+            alarm_list.append(CircuitVFDWarning(circuit, pump, 1))
+            alarm_list.append(CircuitVFDWarning(circuit, pump, 2))
 
     # SDP PUMPS
     alarm_list.append(NonserialAlarm(ident='A05_COM', name=148, desc=149, help=150, group='CIRCUIT SDP', reset='AUTO', what='ALARM', page='ecodry_selfdrain_page.qml', cond='LOGIC'))
