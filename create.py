@@ -144,6 +144,10 @@ def create_alarms():
     for chiller in range(1, 7):
         for alarm in range(1, 7):
             alarm_list.append(MultistageAlarm(chiller, alarm))
+    
+    # FLOWMETER FOR ALL CIRCUITS + MULTISTAGE
+    for slave in [1,2,3,4,8]:
+    	alarm_list.append(FlowmeterAlarm(slave))
             
     # COMMUNICATION MODULES
     for module in range(1,4):

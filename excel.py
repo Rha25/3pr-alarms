@@ -25,7 +25,11 @@ def value_at(row, col):
 	elif col < 0 or col > open_page.ncols:
 		return error_string
 	else:
-		return open_page.cell_value(row-1, col)
+		s = open_page.cell_value(row-1, col)
+		if len(s) == 0:
+			return open_page.cell_value(row-1, Languages.EN)
+		else:
+			return s
 
 class Languages(enum.Enum):
 	EN = 0
@@ -36,7 +40,7 @@ class Languages(enum.Enum):
 	ES = 8
 	PO = 9
 	FR = 10
-	CZ = 11 # FIXME: vedere dove lo pianta moretto
+	CZ = 11
 	
 def string_to_lang(langstr):
 	l = langstr.lower()
@@ -56,6 +60,8 @@ def string_to_lang(langstr):
 		return Languages.PO
 	elif l == 'fr':
 		return Languages.FR
+	elif l == 'cz':
+		return Languages.CZ
 	else:
 		print "Language '%s' unknown. Aborting"%l
 		return None
