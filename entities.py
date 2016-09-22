@@ -632,7 +632,7 @@ class CircuitTRAlarm(CircuitAlarm):
 		self.name_row = 127
 		self.desc_row = 128
 		self.help_row = 129
-		self.what = 'ALARM'
+		self.what = 'WARNING'
 		self.condition = 'PROBE'
 		self.regtype = 'COIL'
 		self.reset = 'AUTO'
@@ -668,7 +668,7 @@ class CircuitFINAlarm(CircuitAlarm):
 		self.name_row = 136
 		self.desc_row = 137
 		self.help_row = 138
-		self.what = 'WARNING'
+		self.what = 'ALARM'
 		self.condition = 'PROBE'
 		self.regtype = 'COIL'
 		self.reset = 'MANUAL'
@@ -676,11 +676,11 @@ class CircuitFINAlarm(CircuitAlarm):
 class CircuitFOUTAlarm(CircuitAlarm):
 	def __init__(self, circuit):
 		CircuitAlarm.__init__(self, circuit)
-		self.identifier = "A%02d_FI%c"%(self.get_number(), self.circuit)
+		self.identifier = "A%02d_FO%c"%(self.get_number(), self.circuit)
 		self.name_row = 139
 		self.desc_row = 140
 		self.help_row = 141
-		self.what = 'WARNING'
+		self.what = 'ALARM'
 		self.condition = 'PROBE'
 		self.regtype = 'COIL'
 		self.reset = 'MANUAL'
