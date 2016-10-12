@@ -799,7 +799,7 @@ class MultistageAlarm(Alarm):
 # =================
 class FlowmeterAlarm(Alarm):
 	def __init__(self, slave):
-		self.identifier = "A0%d_FLM"%slave
+		self.identifier = "A0%d_FMT"%slave
 		if slave == 1:
 			self.page = 'circuit_a_page.qml'
 			self.group = 'CIRCUIT A'
