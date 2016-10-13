@@ -35,6 +35,11 @@ def create_alarms():
     alarm_list.append(NonserialAlarm(ident='WNS_PSE', name=23, desc=24, help=25, group='SPRAY', reset='MANUAL', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
     alarm_list.append(NonserialAlarm(ident='ALS_PSE', name=26, desc=27, help=28, group='SPRAY', reset='MANUAL', what='ALARM', page='ecodry_spray_page.qml', cond='LOGIC'))
     alarm_list.append(NonserialAlarm(ident='WNS_BWR', name=266, desc=267, help=268, group='SPRAY', reset='PASSWORD', what='WARNING', page='ecodry_spray_page.qml', cond='LOGIC'))
+
+	# ECODRY SSD
+    alarm_list.append(NonserialAlarm(ident='WBV_OPN', name=272, desc=273, help=274, group='ECODRY SSD', reset='AUTO', what='WARNING', page='ecodry_pid.qml', cond='LOGIC'))
+    alarm_list.append(NonserialAlarm(ident='WBV_NCL', name=275, desc=276, help=277, group='ECODRY SSD', reset='AUTO', what='WARNING', page='ecodry_pid.qml', cond='LOGIC'))
+    alarm_list.append(NonserialAlarm(ident='ABV_NOP', name=278, desc=279, help=280, group='ECODRY SSD', reset='MANUAL', what='ALARM', page='ecodry_pid.qml', cond='LOGIC'))
     
     # TOTAL: 27 alarms, 20 commons + 7 for row 1 only
     alarm_list.append(RowHighTSEAlarm(1))
