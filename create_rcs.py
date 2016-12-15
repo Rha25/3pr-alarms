@@ -4,6 +4,13 @@ import os.path
 
 # CONSTANTS and GLOBALS
 alarm_list = []
+
+# the PEMS identifier (bit position)
+bit_position = 0
+
+# the row of "name" in excel translations file
+translation = 2
+
 export_lang = Languages.EN
 
 
@@ -25,27 +32,130 @@ def get_output(original):
     return os.path.dirname(os.path.realpath(original)) + "/alarms.xml"
 
 
+def add_one_zone_alarm(type='ALARM', condition='LOGIC'):
+    global  bit_position
+    global translation
+    alarm_list.append(RCSAlarm(bit=bit_position, name=translation, desc=translation + 1, help=translation + 2, zone_number=1, type=type, condition=condition))
+    bit_position += 1
+    translation += 3
+
+
+def add_two_zone_alarm(type='ALARM', condition='LOGIC'):
+    global  bit_position
+    global translation
+    alarm_list.append(RCSAlarm(bit=bit_position, name=translation, desc=translation + 1, help=translation + 2, zone_number=1, type=type, condition=condition))
+    bit_position += 1
+    alarm_list.append(RCSAlarm(bit=bit_position, name=translation, desc=translation + 1, help=translation + 2, zone_number=2, type=type, condition=condition))
+    bit_position += 1
+    translation += 3
+
+
+def add_no_zone_alarm(type='ALARM', condition='LOGIC'):
+    global  bit_position
+    global translation
+    alarm_list.append(RCSAlarm(bit=bit_position, name=translation, desc=translation + 1, help=translation + 2, type=type, condition=condition))
+    bit_position += 1
+    translation += 3
+
+
+def add_probes_alarm():
+    global  bit_position
+    global translation
+    for al in range(1, 13):
+        alarm_list.append(
+            RCSAlarmProbe(number=al, probe='T', bit=bit_position, name=translation, desc=translation + 1, help=translation + 2))
+        bit_position += 1
+    for al in range(1, 10):
+        alarm_list.append(
+            RCSAlarmProbe(number=al, probe='P', bit=bit_position, name=translation, desc=translation + 1, help=translation + 2))
+        bit_position += 1
+    alarm_list.append(
+        RCSAlarmProbe(number=1, probe='S', bit=bit_position, name=translation, desc=translation + 1, help=translation + 2))
+
+
 def create_alarms():
     print "Creating alarms..."
 
-    for al in range(0,37):
-        alarm_list.append(
-            RCSAlarm(ident_number=al+1, name=2+al*3, desc=3+al*3, help=4+al*3)
-        )
+    # LOW WATER LEVEL ZONE {zone}
+    add_two_zone_alarm()
 
-    for al in range(1,13):
-        alarm_list.append(
-            RCSAlarmProbe(number=al, starting_ident_number=37, name=113, desc=114, help=115)
-        )
+    # PD - HIGH ZONE {zone}
+    add_two_zone_alarm()
 
-    for al in range(1,10):
-        alarm_list.append(
-            RCSAlarmProbe(number=al, starting_ident_number=49, name=116, desc=117, help=118)
-        )
+    # PS - HIGH ZONE {zone}
+    add_two_zone_alarm()
 
-    alarm_list.append(
-        RCSAlarmProbe(number=1, starting_ident_number=58, name=119, desc=120, help=121)
-    )
+    # WARNING TEMPERATURE PROCESS TS ZONE {zone}
+    add_two_zone_alarm(type='WARNING')
+
+    # CHECK POLARITY OF THREEPHASE SUPPLY
+    add_no_zone_alarm()
+
+    # PD - LOW ZONE {zone}
+    add_two_zone_alarm()
+
+    # OVERLOAD PROCESS PUMP ZONE {zone}
+    add_two_zone_alarm()
+
+    # TEMPERATURE SWITCH HEATER ZONE {zone}
+    add_two_zone_alarm()
+
+    # PC -HIGH
+    add_no_zone_alarm()
+    
+    # PE - LOW
+    add_no_zone_alarm()
+    
+    # TE - HIGH - HIGH TANK TEMPERATURE
+    add_no_zone_alarm()
+    
+    # OVERLOAD COMPRESSOR
+    add_no_zone_alarm()
+    
+    # OVERLOAD CIRCULATING PUMP
+    add_no_zone_alarm()
+    
+    # ANTIFREEZE SAFETY
+    add_no_zone_alarm()
+    
+    # OVERLOAD FAN
+    add_no_zone_alarm()
+    
+    # COMPRESSOR THERMISTORS
+    add_no_zone_alarm()
+    
+    # HIGH PRESSURE SWITCH
+    add_no_zone_alarm()
+    
+    # FLOWMETER ZONE {zone}
+    add_two_zone_alarm()
+    
+    # OVERLOAD SECOND COMPRESSOR ZONE 1
+    add_one_zone_alarm()
+    
+    # SECOND COMPRESSOR THERMISTORS ZONE 1
+    add_one_zone_alarm()
+    
+    # PROCESS WATER FLOW ZONE {zone}
+    add_two_zone_alarm()
+    
+    # AUXILIARY ALARM ZONE {zone}
+    add_two_zone_alarm()
+    
+    # EVAPORATOR ANTIFREEZE PROTECTION ZONE 1
+    add_one_zone_alarm()
+    
+    # WARNING OSCILLATIONS ZONE {zone}
+    add_two_zone_alarm(type='WARNING')
+
+    # TOO MANY DRAIN PROCEDURES ZONE 1
+    add_one_zone_alarm(type='WARNING')
+
+    # CONDENSER FOULING
+    add_no_zone_alarm(type='WARNING')
+
+    # BROKEN PROBE {probe}{row}
+    add_probes_alarm()
 
     print "Alarms created."
 

@@ -929,45 +929,51 @@ class FlowmeterAlarm(Alarm):
 # RCS
 # =================
 class RCSAlarm(Alarm):
-    def __init__(self, ident_number, name, desc, help, group='GENERAL', reset='MANUAL', what='WARNING', page='_none_',
-                 cond='LOGIC', regtype='NULL'):
-
-
-        self.identifier = "1:alarm:%d" % (ident_number)
+    def __init__(self, bit, name, desc, help, zone_number=-1, condition='LOGIC', type='ALARM'):
+        self.identifier = "1:alarm:%d" % bit
         self.name_row = name
         self.desc_row = desc
         self.help_row = help
+        self.zone = zone_number
         # ........................
-        self.group = group
-        self.condition = cond
-        self.what = what
-        self.reset = reset
-        self.page = page
-        self.regtype = regtype
+        self.group = 'TB9'
+        self.condition = condition
+        self.what = type
+        self.reset = 'AUTO'
+        self.page = '_none_'
+        self.regtype = 'NULL'
+
+    def get_name(self, lang):
+        return value_at(self.name_row, lang).format(zone=self.zone)
+
+    def get_description(self, lang):
+        return value_at(self.desc_row, lang).format(zone=self.zone)
+
+    def get_help(self, lang):
+        return value_at(self.help_row, lang).format(zone=self.zone)
 
 
 class RCSAlarmProbe(Alarm):
-    def __init__(self, number,  starting_ident_number, name, desc, help, group='GENERAL', reset='MANUAL', what='WARNING', page='_none_',
-                 cond='LOGIC', regtype='NULL'):
-
+    def __init__(self, number, bit, name, desc, help, probe, condition='PROBE', type='ALARM'):
         self.number = number
-        self.identifier = "1:alarm:%d" % (self.number+starting_ident_number)
+        self.probe = probe
+        self.identifier = "1:alarm:%d" % bit
         self.name_row = name
         self.desc_row = desc
         self.help_row = help
         # ........................
-        self.group = group
-        self.condition = cond
-        self.what = what
-        self.reset = reset
-        self.page = page
-        self.regtype = regtype
+        self.group = 'TB9'
+        self.condition = condition
+        self.what = type
+        self.reset = 'AUTO'
+        self.page = '_none_'
+        self.regtype = 'NULL'
 
     def get_name(self, lang):
-        return value_at(self.name_row, lang).replace("(row)", str(self.number))
+        return value_at(self.name_row, lang).format(probe=self.probe, row=self.number)
 
     def get_description(self, lang):
-        return value_at(self.desc_row, lang).replace("(row)", str(self.number))
+        return value_at(self.desc_row, lang).format(probe=self.probe, row=self.number)
 
     def get_help(self, lang):
-        return value_at(self.help_row, lang).replace("(row)", str(self.number))
+        return value_at(self.help_row, lang).format(probe=self.probe, row=self.number)
