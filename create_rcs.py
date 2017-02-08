@@ -97,16 +97,16 @@ def create_alarms():
     # OVERLOAD PROCESS PUMP ZONE {zone}
     add_two_zone_alarm()
 
-    # TEMPERATURE SWITCH HEATER ZONE {zone}
+    # HEATING ELEMENT THERMOSTAT ZONE {zone}
     add_two_zone_alarm()
 
-    # PC -HIGH
+    # DP - HIGH
     add_no_zone_alarm()
     
-    # PE - LOW
+    # SP - LOW
     add_no_zone_alarm()
     
-    # TE - HIGH - HIGH TANK TEMPERATURE
+    # MAXIMUM TE
     add_no_zone_alarm()
     
     # OVERLOAD COMPRESSOR
@@ -130,10 +130,10 @@ def create_alarms():
     # FLOWMETER ZONE {zone}
     add_two_zone_alarm()
     
-    # OVERLOAD SECOND COMPRESSOR ZONE 1
+    # OVERLOAD SECOND COMPRESSOR
     add_one_zone_alarm()
     
-    # SECOND COMPRESSOR THERMISTORS ZONE 1
+    # SECOND COMPRESSOR THERMISTORS
     add_one_zone_alarm()
     
     # PROCESS WATER FLOW ZONE {zone}
@@ -142,14 +142,23 @@ def create_alarms():
     # AUXILIARY ALARM ZONE {zone}
     add_two_zone_alarm()
     
-    # EVAPORATOR ANTIFREEZE PROTECTION ZONE 1
+    # EVAPORATOR ANTIFREEZE PROTECTION
     add_one_zone_alarm()
     
     # WARNING OSCILLATIONS ZONE {zone}
     add_two_zone_alarm(type='WARNING')
 
-    # TOO MANY DRAIN PROCEDURES ZONE 1
+    # TOO MANY DRAIN PROCEDURES
     add_one_zone_alarm(type='WARNING')
+
+    # HIGH CONDENSER APPROACH WARNING
+    add_no_zone_alarm(type='WARNING')
+
+    # HIGH CONDENSER WATER DELTA-T WARNING
+    add_no_zone_alarm(type='WARNING')
+
+    # HIGH CONDENSER WATER DELTA-P WARNING
+    add_no_zone_alarm(type='WARNING')
 
     # CONDENSER FOULING
     add_no_zone_alarm(type='WARNING')
