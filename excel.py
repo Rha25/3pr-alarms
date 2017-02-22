@@ -3,65 +3,87 @@ import enum
 
 # Functions to extract strings from the 3PR Translations.xlsx file
 
-open_page = None # declared here
+open_page = None  # declared here
 error_string = "__ERROR__"
+
 
 # page = string, title of the page
 def open_file_at_page(path, page):
-	print "Opening file", path, "at page", page
-	global open_page
-	try:
-		print "..."
-		myfile = xlrd.open_workbook(path)
-		open_page = myfile.sheet_by_name(page)
-		print "Done"
-	except Exception as ex:
-		print "Error opening the excel file: ", ex.message
+    print "Opening file", path, "at page", page
+    global open_page
+    try:
+        print "..."
+        myfile = xlrd.open_workbook(path)
+        open_page = myfile.sheet_by_name(page)
+        print "Done"
+    except Exception as ex:
+        print "Error opening the excel file: ", ex.message
+
 
 # return the direct cell's value (str, int, float...)
 def value_at(row, col):
-	if row < 2 or row > open_page.nrows:
-		return error_string
-	elif col < 0 or col > open_page.ncols:
-		return error_string
-	else:
-		s = open_page.cell_value(row-1, col)
-		if len(s) == 0:
-			return open_page.cell_value(row-1, Languages.EN)
-		else:
-			return s
+    if row < 2 or row > open_page.nrows:
+        return error_string
+    elif col < 0 or col > open_page.ncols:
+        return error_string
+    else:
+        s = open_page.cell_value(row - 1, col)
+        if len(s) == 0:
+            return open_page.cell_value(row - 1, Languages.EN)
+        else:
+            return s
+
 
 class Languages(enum.Enum):
-	EN = 0
-	IT = 4
-	JA = 5
-	ZH = 6
-	DE = 7
-	ES = 8
-	PO = 9
-	FR = 10
-	CZ = 11
-	
+    EN = 0
+    IT = 4
+    JA = 5
+    ZH = 6
+    DE = 7
+    ES = 8
+    PL = 9
+    FR = 10
+    CZ = 11
+    RU = 12
+    PT = 13
+    TR = 14
+    SR = 15
+    RO = 16
+    HU = 17
+
+
 def string_to_lang(langstr):
-	l = langstr.lower()
-	if l == 'en':
-		return Languages.EN
-	elif l == 'it':
-		return Languages.IT
-	elif l == 'ja':
-		return Languages.JA
-	elif l == 'zh':
-		return Languages.ZH
-	elif l == 'de':
-		return Languages.DE
-	elif l == 'es':
-		return Languages.ES
-	elif l == 'po':
-		return Languages.PO
-	elif l == 'fr':
-		return Languages.FR
-	elif l == 'cz':
-		return Languages.CZ
-	else:
-		print "Language '%s' unknown. Aborting"%l
-		return None
+    l = langstr.lower()
+    if l == 'en':
+        return Languages.EN
+    elif l == 'it':
+        return Languages.IT
+    elif l == 'ja':
+        return Languages.JA
+    elif l == 'zh':
+        return Languages.ZH
+    elif l == 'de':
+        return Languages.DE
+    elif l == 'es':
+        return Languages.ES
+    elif l == 'pt':
+        return Languages.PT
+    elif l == 'fr':
+        return Languages.FR
+    elif l == 'cz':
+        return Languages.CZ
+    elif l == 'pl':
+        return Languages.PL
+    elif l == 'tr':
+        return Languages.TR
+    elif l == 'ru':
+        return Languages.RU
+    elif l == 'sr':
+        return Languages.SR
+    elif l == 'ro':
+        return Languages.RO
+    elif l == 'hu':
+        return Languages.HU
+    else:
+        print "Language '%s' unknown. Aborting" % l
+        return None

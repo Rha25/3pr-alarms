@@ -1,4 +1,4 @@
-from entities import *
+from alarms import *
 import argparse
 import os.path
 
